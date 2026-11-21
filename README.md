@@ -6,21 +6,9 @@
 
 # The Day in One Page — Saturday, 21 November 2026
 
-One day's world news, set as a single newspaper front page. The image
-(entry.png, 1024×1024) carries 29 stories, and every one of them
-happened — or was first reported — on that one Saturday,
-21 November 2026. Three
-stories lead the page: an AI-led selloff that pushed Wall Street into
-correction, three Houthi ballistic missiles intercepted over Riyadh
-before dawn, and the COP31 climate summit running into overtime with
-no deal agreed. Around them sit ten shorter reports and a two-column
-briefing of fourteen more, each with its source named beside it.
+One square image, one whole day of the world. The picture is a broadsheet newspaper front page carrying 29 verified stories, every one of which happened — or was first reported — on Saturday 21 November 2026, and not a day earlier or later.
 
-Three numbers from the day, lifted into the strip under the masthead:
-
-- **−3.7%** — the S&P 500's week, a seventh straight fall into correction
-- **3** — Houthi missiles shot down over Riyadh before dawn
-- **146** — passengers brought to safety after an emergency landing in Davao
+Three stories lead the page. Wall Street slid into correction as an AI-led selloff knocked 3.7% off the S&P 500 across its seventh straight losing session. Before dawn, Saudi-led air defences intercepted three Houthi ballistic missiles over Riyadh, with no casualties. And in Antalya, nearly 200 countries at COP31 ran past their deadline still deadlocked, after the draft deal dropped all mention of fossil fuels. Around them sit a stat strip (a 6.7 quake in Peru, 146 people safe after an emergency landing in Davao, bitcoin at $58,076, KL Rahul's 136 in Wellington), ten more stories from around the world, and a dense "Also Today" column for everything else the day produced.
 
 ## Run it
 
@@ -28,16 +16,8 @@ Three numbers from the day, lifted into the strip under the masthead:
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-main.ts checks the image's PNG header — signature and dimensions —
-then copies entry.png into the directory named by MAKEFUN_OUTPUT_DIR
-(/output when the variable is unset) and prints its size and
-dimensions.
+`main.ts` checks the bundled `entry.png` before shipping it — a genuine PNG signature, sane dimensions, no side over 1024 pixels, and a file size a real broadsheet could actually have — then copies it to the output directory (`MAKEFUN_OUTPUT_DIR`, or `/output` when that is unset).
 
 ## How it was made
 
-The stories were gathered from wire reporting published that day and
-date-verified one by one: anything that belonged to an earlier day was
-left out, and officials' counts are printed as claims, attributed to
-who made them. The front page was then composed as HTML and CSS (the
-source is kept in src/page.html, artwork included as inline SVG) and
-rendered headlessly at exactly 1024×1024 to produce entry.png.
+The stories were gathered from wire reporting across the day and date-checked one by one: each item had to belong to 21 November 2026 itself, not to the day before or to a running story's older chapters. The page was then composed as a single self-contained HTML/CSS broadsheet (`src/page.html`, no external assets) and rendered headlessly at exactly 1024×1024 to produce `entry.png`. At run time the program validates the PNG before copying it, so a damaged or oversized image fails loudly instead of being shipped.
